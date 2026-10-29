@@ -28,3 +28,9 @@ This log records actual work in this repository; it does not claim human prompts
 - Codex identified that OBS has separate browser storage, replaced storage-only voice settings with server state, and synchronized playback events via HTTP/SSE. Browser checks use a separate overlay context to preserve this boundary.
 - Codex captured actual control-room/transparent-overlay screenshots and wrote README setup/architecture/limitations, the three-minute demo beat sheet, Devpost copy, and MIT licensing.
 - Evidence boundaries: no live Twitch account, paid OpenAI call, downloaded local model, physical microphone, or OBS application was exercised. Browser speech animation is implemented using playback events; real audio output should be checked on the recording machine.
+
+## 2026-10-29 — reproducibility and handoff
+
+- A clean `npm ci --no-audit --no-fund` completed, followed by successful TypeScript, formatting, all five tests, and a fresh browser-smoke run after restarting the development server.
+- Saved cloud `install_script` and `start_skill` draft fields for the user to review and publish. Saving a draft is not publication or validation of a fresh task.
+- Remaining submission work: provide real integration credentials for a live smoke test, record/upload the demo, complete the video URL in Devpost, and publish the entry before the supplied deadline. No paid API calls or external submission actions were performed.
