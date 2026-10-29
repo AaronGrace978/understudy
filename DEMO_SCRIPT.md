@@ -24,3 +24,27 @@ Before recording: `npm i && npm run dev`, open the control room and `/overlay`, 
 - Give Codex evidence screen time: terminal `git log --oneline`, `npm test`, `CODEX_LOG.md`, and a source excerpt.
 - If live Twitch or OpenAI is configured later, record a separate verified clip and update the build log. Do not claim it was validated by the current automated tests.
 - Export, upload, and add the public video URL to Devpost before the deadline. Those publication steps remain manual.
+
+## Generated 2½-minute cut
+
+The recorded cut is [docs/demo.mp4](docs/demo.mp4). It is a captioned, silent browser demo at 1920×1080. It shows the real control room and `/overlay` side by side, using fictional viewers through the mock adapter. It does not depict a live Twitch connection or paid model output.
+
+| Time      | Recorded beat                                                    |
+| --------- | ---------------------------------------------------------------- |
+| 0:00–0:20 | Hook and channel profile / pasted notes                          |
+| 0:20–0:46 | Viewers arrive; profile-backed replies and laughing avatar       |
+| 0:46–0:54 | Streamer typed transcript suggests a segment                     |
+| 0:54–1:20 | Multiple viewers vote; one changes their vote; results announced |
+| 1:20–1:43 | Actual Alt+A takeover, explicit AI disclosure, identity question |
+| 1:43–2:01 | Signature storytime prompt, viewer participation, Stop           |
+| 2:01–2:25 | Pan through actual `CODEX_LOG.md` and Git history                |
+| 2:25–2:30 | Return to the app and closing tagline                            |
+
+To reproduce on Linux with system Chromium and ffmpeg installed:
+
+```sh
+node scripts/record-demo.mjs
+ffmpeg -y -i test-results/demo/source.webm -c:v libx264 -preset fast -crf 22 -pix_fmt yuv420p -movflags +faststart -an docs/demo.mp4
+```
+
+The recorder starts its own isolated server on port 3015 with `.env` loading disabled and Twitch, local model, and OpenAI credentials blank. It uses Playwright `recordVideo`, closes the context to finalize the WebM, and saves a verification report in ignored `test-results/demo/`. Set `CHROMIUM_PATH` and `FFMPEG_PATH` if your installed executables are elsewhere. The default server on port 3000 is unaffected. The raw WebM stays ignored; the MP4 is committed.

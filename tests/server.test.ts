@@ -90,6 +90,25 @@ test("local workflow: mock chat, takeover, votes, profile, provider, idle, cance
   await action("chat", "1");
   await action("chat", "2");
   assert.deepEqual((await state()).poll.counts, [0, 1]);
+  await action("chat", { user: "pixelpilot", text: "2" });
+  await action("chat", { user: "cozycat", text: "1" });
+  assert.deepEqual((await state()).poll.counts, [1, 2]);
+  await action("chat", {
+    user: "fake_mod",
+    text: "!understudy stop",
+    moderator: true,
+  });
+  assert.equal((await state()).mode, "standin");
+  assert.equal(
+    (
+      await post("/api/action", {
+        action: "chat",
+        value: { user: "<script>", text: "hello" },
+      })
+    ).status,
+    400,
+  );
+
   await action("endPoll");
   assert.equal((await state()).poll, null);
   assert.match((await state()).history.at(-1).text, /Chaotic racing wins/);

@@ -34,3 +34,13 @@ This log records actual work in this repository; it does not claim human prompts
 - A clean `npm ci --no-audit --no-fund` completed, followed by successful TypeScript, formatting, all five tests, and a fresh browser-smoke run after restarting the development server.
 - Saved cloud `install_script` and `start_skill` draft fields for the user to review and publish. Saving a draft is not publication or validation of a fresh task.
 - Remaining submission work: provide real integration credentials for a live smoke test, record/upload the demo, complete the video URL in Devpost, and publish the entry before the supplied deadline. No paid API calls or external submission actions were performed.
+
+## 2026-10-29 — generated mock-only demo video
+
+- User prompt: generate a roughly 2½-minute demo with Playwright `recordVideo`, control room and overlay side by side at 1920×1080, realistic mock chat, polling, catchphrases, laughter, Alt+A takeover, a pan over this log, MP4 conversion, and commit/push to main. Mock data only; no paid API calls.
+- Codex added a reproducible recording script that starts an isolated server with `.env` loading disabled and external provider credentials blank. Editorial captions label the footage as mock; all in-app replies, polls, and state changes come from the running app.
+- Added validated named simulated viewers to the existing local mock-chat action, preserving string input compatibility. Simulated viewer payloads never carry Twitch moderator privileges. Expanded the HTTP integration test to check separate votes, invalid names, and forged moderator flags.
+- Adjusted takeover wording to begin “I'm Understudy, standing in for Nova,” followed immediately by the AI disclosure. No identity or safety requirement was removed.
+- The recording is silent with on-screen narrative captions; no synthetic narration or microphone claim is made. The Codex section shows actual log contents and Git history.
+- Final artifact verified with ffprobe: `docs/demo.mp4`, H.264, 1920×1080, 25 fps, 151.64 seconds, 12,303,119 bytes. Full MP4 decode completed without errors. Representative co-host, takeover, and build-log frames were visually inspected.
+- Recording verification: mock provider, Twitch disconnected, ten bot messages, stopped at the end, and zero browser page errors. TypeScript, formatting, and all five tests passed after the mock-viewer changes. No paid API or microphone call was made.

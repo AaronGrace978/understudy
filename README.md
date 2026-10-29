@@ -120,7 +120,8 @@ The browser script defaults to Linux `/usr/bin/chromium`; set `CHROMIUM_PATH` to
 
 ## Submission kit
 
-- [Three-minute video beat sheet](DEMO_SCRIPT.md)
+- [Watch the 2½-minute mock demo](docs/demo.mp4)
+- [Video beat sheet and recording instructions](DEMO_SCRIPT.md)
 - [Devpost submission copy](DEVPOST.md)
 - [Codex prompts, decisions, and build evidence](CODEX_LOG.md)
 - [MIT license](LICENSE)

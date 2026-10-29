@@ -136,7 +136,7 @@ async function setMode(next: typeof mode) {
   update();
   if (next === "standin")
     await say(
-      `I'm Understudy, an AI co-host standing in for ${profile.streamer}. They're away from the mic; I'm here to keep chat company.`,
+      `I'm Understudy, standing in for ${profile.streamer}. I'm an AI co-host; they're away from the mic, and I'm here to keep chat company.`,
     );
 }
 async function respond(input: string) {
@@ -279,11 +279,17 @@ app.post("/api/action", async (req, res) => {
           throw Error("Invalid mode");
         await setMode(value);
         break;
-      case "chat":
-        if (typeof value !== "string" || !value.trim() || value.length > 500)
+      case "chat": {
+        const text = typeof value === "string" ? value : value?.text;
+        const user = typeof value === "string" ? "demo_viewer" : value?.user;
+        if (typeof text !== "string" || !text.trim() || text.length > 500)
           throw Error("Use 1–500 characters");
-        await chat("demo_viewer", value);
+        if (typeof user !== "string" || !/^[a-zA-Z0-9_]{1,25}$/.test(user))
+          throw Error("Invalid simulated viewer name");
+        // Simulated identities never carry Twitch moderator privileges.
+        await chat(user, text);
         break;
+      }
       case "kill":
         await setMode("stopped");
         log("System", "Local kill switch activated.", "system");

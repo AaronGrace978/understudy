@@ -54,7 +54,7 @@ OpenAI Codex, TypeScript, Node.js, Express, tmi.js, Twitch IRC, Server-Sent Even
 ## Submission fields to complete
 
 - Repository: https://github.com/AaronGrace978/understudy
-- Demo video: **add the public three-minute recording URL**
+- Demo video file: `docs/demo.mp4` (2½-minute captioned mock demo). Upload it to a public video host and add the URL to the submission.
 - Screenshots: `docs/control-room.png` and `docs/overlay.png`
 - Event deadline from the supplied brief: **November 2, 2026, 5:00 PM ET**; verify on Devpost.
 - Review the event's eligibility and disclosure requirements and publish the entry manually. This file is submission copy, not a submitted entry.
