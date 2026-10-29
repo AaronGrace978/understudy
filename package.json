@@ -1,6 +1,32 @@
 {
-  "name": "understudy", "version": "0.1.0", "private": true, "type": "module",
-  "scripts": {"dev":"tsx watch src/server.ts", "start":"tsx src/server.ts", "typecheck":"tsc --noEmit", "test":"tsx --test tests/*.test.ts"},
-  "dependencies":{"dotenv":"^16.4.7","express":"^4.21.2","tmi.js":"^1.8.5"},
-  "devDependencies":{"@types/express":"^4.17.21","@types/node":"^22.10.0","@types/tmi.js":"^1.8.6","tsx":"^4.19.2","typescript":"^5.7.2","playwright":"^1.49.1"}
+  "name": "understudy",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:browser": "node scripts/browser-smoke.mjs",
+    "format": "prettier --write src public tests scripts/*.mjs *.md package.json tsconfig.json",
+    "format:check": "prettier --check src public tests scripts/*.mjs *.md package.json tsconfig.json"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "@types/tmi.js": "^1.8.6",
+    "playwright": "^1.49.1",
+    "prettier": "^3.9.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

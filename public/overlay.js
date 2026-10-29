@@ -1,6 +1,72 @@
-import {Voice,animateAvatar} from './voice.js';
-const avatar=animateAvatar(document.getElementById('avatar'),document.getElementById('avatarWrap'));const bus=new BroadcastChannel('understudy-voice');let enabled=false;let config={};let stopped=false;
-function load(){try{config=JSON.parse(localStorage.getItem('understudy-voice'))||{};}catch{config={};}if(!config.overlay||!config.enabled)voice.cancel();}
-const voice=new Voice(speaking=>{avatar.speaking(speaking);bus.postMessage({speaking});});load();
-document.getElementById('unlock').onclick=()=>{enabled=true;document.getElementById('unlock').hidden=true;void voice.speak('Understudy overlay audio enabled.','browser');};
-const events=new EventSource('/api/events');events.addEventListener('state',e=>{const s=JSON.parse(e.data);stopped=s.mode==='stopped';document.getElementById('mode').textContent=stopped?'STOPPED':s.mode==='standin'?'AI · STANDING IN':'AI CO-HOST';if(stopped){voice.cancel();document.getElementById('caption').textContent='Understudy is paused. The streamer is in control.';}});events.addEventListener('speech',e=>{if(stopped)return;const data=JSON.parse(e.data);document.getElementById('caption').textContent=data.text;avatar.emotion(data.emotion);load();if(enabled&&config.enabled&&config.overlay)void voice.speak(data.text,config.provider);});events.addEventListener('emotion',e=>avatar.emotion(JSON.parse(e.data)));events.addEventListener('cancel',()=>voice.cancel());events.onerror=()=>{document.getElementById('footer').textContent='Disconnected · reconnecting to control room';voice.cancel();};events.onopen=()=>{document.getElementById('footer').textContent='AI voice & captions · never the human streamer';};bus.onmessage=e=>{if(e.data.config)load();if(e.data.cancel)voice.cancel();if(typeof e.data.speaking==='boolean'&&!config.overlay)avatar.speaking(e.data.speaking);};window.addEventListener('storage',load);
+import { Voice, animateAvatar } from "./voice.js";
+const avatar = animateAvatar(
+  document.getElementById("avatar"),
+  document.getElementById("avatarWrap"),
+);
+const bus = new BroadcastChannel("understudy-voice");
+let enabled = false;
+let config = {};
+let stopped = false;
+function load() {
+  if (!config.overlay || !config.enabled) voice.cancel();
+}
+const voice = new Voice((speaking) => {
+  avatar.speaking(speaking);
+  bus.postMessage({ speaking });
+  fetch("/api/voice-state", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ speaking }),
+  }).catch(() => {});
+});
+load();
+document.getElementById("unlock").onclick = () => {
+  enabled = true;
+  document.getElementById("unlock").hidden = true;
+  void voice.speak("Understudy overlay audio enabled.", "browser");
+};
+const events = new EventSource("/api/events");
+events.addEventListener("state", (e) => {
+  const s = JSON.parse(e.data);
+  config = s.voiceConfig || {};
+  load();
+  stopped = s.mode === "stopped";
+  document.getElementById("mode").textContent = stopped
+    ? "STOPPED"
+    : s.mode === "standin"
+      ? "AI · STANDING IN"
+      : "AI CO-HOST";
+  if (stopped) {
+    voice.cancel();
+    document.getElementById("caption").textContent =
+      "Understudy is paused. The streamer is in control.";
+  }
+});
+events.addEventListener("speech", (e) => {
+  if (stopped) return;
+  const data = JSON.parse(e.data);
+  document.getElementById("caption").textContent = data.text;
+  avatar.emotion(data.emotion);
+  load();
+  if (enabled && config.enabled && config.overlay)
+    void voice.speak(data.text, config.provider);
+});
+events.addEventListener("emotion", (e) => avatar.emotion(JSON.parse(e.data)));
+events.addEventListener("speaking", (e) => avatar.speaking(JSON.parse(e.data)));
+events.addEventListener("cancel", () => voice.cancel());
+events.onerror = () => {
+  document.getElementById("footer").textContent =
+    "Disconnected · reconnecting to control room";
+  voice.cancel();
+};
+events.onopen = () => {
+  document.getElementById("footer").textContent =
+    "AI voice & captions · never the human streamer";
+};
+bus.onmessage = (e) => {
+  if (e.data.config) load();
+  if (e.data.cancel) voice.cancel();
+  if (typeof e.data.speaking === "boolean" && !config.overlay)
+    avatar.speaking(e.data.speaking);
+};
+window.addEventListener("storage", load);

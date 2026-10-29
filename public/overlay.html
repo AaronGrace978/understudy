@@ -1,1 +1,112 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Understudy · OBS overlay</title><style>*{box-sizing:border-box}body{margin:0;background:transparent;font-family:system-ui,sans-serif;color:white}.overlay{position:absolute;bottom:35px;left:35px;width:420px}.avatar{width:250px;height:250px;position:relative;left:85px;animation:bob 3s ease-in-out infinite}.avatar img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 20px #0006)}.avatar.speaking{animation:talk .2s infinite alternate}.bubble{background:#19151eea;border:1px solid #77608b;border-radius:18px;padding:22px;box-shadow:0 10px 30px #0003}.label{color:#c0f785;font-size:11px;letter-spacing:2px;margin-bottom:9px;display:flex;justify-content:space-between}#caption{font-size:19px;line-height:1.45}.footer{font-size:10px;color:#b4a9bf;margin-top:12px}button{font:12px system-ui;background:#c0f785;border:0;padding:9px 12px;border-radius:7px;cursor:pointer;margin-top:10px}.offline{color:#ff9eaf}@keyframes bob{50%{transform:translateY(-6px)}}@keyframes talk{to{transform:translateY(-8px) rotate(2deg)}}@media(max-width:500px){.overlay{left:15px;bottom:15px;width:calc(100vw - 30px)}}</style></head><body><div class="overlay"><div class="avatar" id="avatarWrap"><img id="avatar" src="/assets/idle.png" alt="Understudy AI avatar"></div><div class="bubble"><div class="label"><strong>✦ UNDERSTUDY</strong><span id="mode">AI CO-HOST</span></div><div id="caption">Your AI co-host is ready. The show goes on.</div><div class="footer" id="footer">AI voice & captions · never the human streamer</div><button id="unlock">Enable overlay audio</button></div></div><script type="module" src="/overlay.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Understudy · OBS overlay</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: transparent;
+        font-family: system-ui, sans-serif;
+        color: white;
+      }
+      .overlay {
+        position: absolute;
+        bottom: 35px;
+        left: 35px;
+        width: 420px;
+      }
+      .avatar {
+        width: 250px;
+        height: 250px;
+        position: relative;
+        left: 85px;
+        animation: bob 3s ease-in-out infinite;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 20px #0006);
+      }
+      .avatar.speaking {
+        animation: talk 0.2s infinite alternate;
+      }
+      .bubble {
+        background: #19151eea;
+        border: 1px solid #77608b;
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 10px 30px #0003;
+      }
+      .label {
+        color: #c0f785;
+        font-size: 11px;
+        letter-spacing: 2px;
+        margin-bottom: 9px;
+        display: flex;
+        justify-content: space-between;
+      }
+      #caption {
+        font-size: 19px;
+        line-height: 1.45;
+      }
+      .footer {
+        font-size: 10px;
+        color: #b4a9bf;
+        margin-top: 12px;
+      }
+      button {
+        font: 12px system-ui;
+        background: #c0f785;
+        border: 0;
+        padding: 9px 12px;
+        border-radius: 7px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .offline {
+        color: #ff9eaf;
+      }
+      @keyframes bob {
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+      @keyframes talk {
+        to {
+          transform: translateY(-8px) rotate(2deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .overlay {
+          left: 15px;
+          bottom: 15px;
+          width: calc(100vw - 30px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay">
+      <div class="avatar" id="avatarWrap">
+        <img id="avatar" src="/assets/idle.png" alt="Understudy AI avatar" />
+      </div>
+      <div class="bubble">
+        <div class="label">
+          <strong>✦ UNDERSTUDY</strong><span id="mode">AI CO-HOST</span>
+        </div>
+        <div id="caption">Your AI co-host is ready. The show goes on.</div>
+        <div class="footer" id="footer">
+          AI voice & captions · never the human streamer
+        </div>
+        <button id="unlock">Enable overlay audio</button>
+      </div>
+    </div>
+    <script type="module" src="/overlay.js"></script>
+  </body>
+</html>
